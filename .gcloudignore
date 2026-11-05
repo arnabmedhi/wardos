@@ -1,0 +1,11 @@
+# What Cloud Build must never receive: patient data, secrets, local environments.
+.gcloudignore
+.git
+.venv/
+private/
+tests/
+docs/
+.env
+**/__pycache__/
+*.pyc
+.pytest_cache/

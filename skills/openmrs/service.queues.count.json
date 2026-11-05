@@ -1,0 +1,55 @@
+{
+  "description": "Count the number of patients in the Service queues table",
+  "steps": [
+    {
+      "id": "home",
+      "action": "home",
+      "intent": "start from the dashboard"
+    },
+    {
+      "id": "s1_read_table_read_table",
+      "intent": "read_table ''",
+      "action": "read_table",
+      "only_selectable": false,
+      "save_as": "rows"
+    },
+    {
+      "id": "answer_evidence",
+      "action": "wait",
+      "condition": {
+        "url_contains": "/openmrs/spa/home/service-queues"
+      }
+    },
+    {
+      "id": "answer_rows",
+      "action": "read_table",
+      "only_selectable": false,
+      "save_as": "answer_rows"
+    }
+  ],
+  "skill": "service.queues.count",
+  "portal": "openmrs",
+  "kind": "read",
+  "version": 1,
+  "inputs": {},
+  "source": "ask exploration 20261104-080251-ask-e69347",
+  "answer_contract": {
+    "kind": "table",
+    "path": "/openmrs/spa/home/service-queues",
+    "headers": [
+      "Queue",
+      "Location",
+      "Service",
+      "Waiting",
+      "In Service",
+      "Average wait",
+      "Longest wait"
+    ]
+  },
+  "produces": "table",
+  "verified": {
+    "run": "replay 1",
+    "status": "OK",
+    "date": "2026-11-04T08:03:52"
+  }
+}

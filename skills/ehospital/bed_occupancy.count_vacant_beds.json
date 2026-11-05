@@ -1,0 +1,127 @@
+{
+  "skill": "bed_occupancy.count_vacant_beds",
+  "portal": "ehospital",
+  "version": 2,
+  "kind": "read",
+  "description": "Get the total number of vacant beds across the hospital",
+  "source": "ask exploration 20261023-143837-ask-30c60f; repaired once after a failed replay",
+  "inputs": {},
+  "steps": [
+    {
+      "id": "home",
+      "intent": "start from home dashboard",
+      "action": "home"
+    },
+    {
+      "id": "open_ipd",
+      "intent": "open the IPD module",
+      "action": "click",
+      "target": {
+        "css": "a[href*='/ipd']",
+        "role": "link",
+        "name": "/^\\s*IPD\\s*$/i",
+        "text": "/^\\s*IPD\\s*$/i"
+      },
+      "expect": {
+        "url_contains": "/ipd"
+      },
+      "timeout_s": 20
+    },
+    {
+      "id": "open_report_menu",
+      "intent": "expand the Report side menu heading",
+      "action": "click_until",
+      "target": {
+        "css": "div.iocn-link",
+        "has_text": "Report",
+        "text": "/^\\s*Report\\s*$/i"
+      },
+      "until": {
+        "visible": {
+          "css": "a[href='/ipd/report/bed_occupancy']"
+        }
+      },
+      "max_tries": 6,
+      "force": true,
+      "timeout_s": 20
+    },
+    {
+      "id": "open_bed_occupancy",
+      "intent": "open the Bed Occupancy report page",
+      "action": "click",
+      "target": {
+        "css": "a[href='/ipd/report/bed_occupancy']",
+        "role": "link",
+        "name": "/^\\s*Bed Occupancy\\s*$/i",
+        "text": "/^\\s*Bed Occupancy\\s*$/i"
+      },
+      "expect": {
+        "url_contains": "/ipd/report/bed_occupancy"
+      },
+      "timeout_s": 20
+    },
+    {
+      "id": "open_items_per_page",
+      "intent": "click items per page dropdown",
+      "action": "click",
+      "target": {
+        "css": "mat-select[aria-label*='Items per page']",
+        "role": "combobox"
+      },
+      "timeout_s": 10
+    },
+    {
+      "id": "select_100_per_page",
+      "intent": "select 100 items per page option",
+      "action": "click",
+      "target": {
+        "css": "mat-option",
+        "has_text": "100",
+        "role": "option",
+        "text": "/^\\s*100\\s*$/"
+      },
+      "timeout_s": 10
+    },
+    {
+      "id": "read_bed_occupancy_table",
+      "intent": "read all rows from the bed occupancy table",
+      "action": "read_table",
+      "save_as": "rows",
+      "only_selectable": false,
+      "on_empty": "NOT_FOUND"
+    },
+    {
+      "id": "answer_evidence",
+      "action": "wait",
+      "condition": {
+        "url_contains": "/ipd/report/bed_occupancy"
+      }
+    },
+    {
+      "id": "answer_rows",
+      "action": "read_table",
+      "only_selectable": false,
+      "save_as": "answer_rows"
+    }
+  ],
+  "answer_contract": {
+    "kind": "table",
+    "path": "/ipd/report/bed_occupancy",
+    "headers": [
+      "SNo",
+      "Ward Name",
+      "Ward Type",
+      "Ward Status",
+      "Total No of Beds",
+      "Total Active Beds",
+      "OCCUPIED Beds",
+      "VACANT Beds"
+    ]
+  },
+  "produces": "table",
+  "verified": {
+    "run": "replay 2",
+    "status": "OK",
+    "date": "2026-10-23T14:47:05"
+  }
+}

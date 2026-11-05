@@ -1,0 +1,15 @@
+# environment
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# secrets: never commit
+.env
+service-account*.json
+token*.json
+client_secret*.json
+*.pem
+
+# runs, captured PDFs, browser profiles, saved logins, the local record: can hold patient data
+private/

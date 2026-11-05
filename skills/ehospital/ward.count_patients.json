@@ -1,0 +1,142 @@
+{
+  "description": "Count current patients in a specific ward",
+  "steps": [
+    {
+      "id": "home",
+      "action": "home",
+      "intent": "start from the dashboard"
+    },
+    {
+      "id": "s1_click_ipd",
+      "intent": "click 'IPD'",
+      "action": "click",
+      "target": {
+        "css": "a[href='https://nextgen.ehospital.gov.in/ipd/']",
+        "role": "link",
+        "name": "/^\\s*IPD\\s*$/i"
+      },
+      "expect": {
+        "url_contains": "/ipd/"
+      }
+    },
+    {
+      "id": "s2_click_i",
+      "intent": "click ''",
+      "action": "click_until",
+      "target": {
+        "css": "div.iocn-link",
+        "has_text": "Report",
+        "text": "/^\\s*Report\\s*$/i"
+      },
+      "until": {
+        "visible": {
+          "css": "a[href='/ipd/report/patient_list']",
+          "role": "link",
+          "name": "/^\\s*Active Patients\\s*$/i"
+        }
+      },
+      "max_tries": 6
+    },
+    {
+      "id": "s3_click_active_patients",
+      "intent": "click 'Active Patients'",
+      "action": "click",
+      "target": {
+        "css": "a[href='/ipd/report/patient_list']",
+        "role": "link",
+        "name": "/^\\s*Active Patients\\s*$/i"
+      },
+      "expect": {
+        "url_contains": "/ipd/report/patient_list"
+      }
+    },
+    {
+      "id": "s4_choose_all",
+      "intent": "choose '--All--'",
+      "action": "select",
+      "target": {
+        "css": "mat-select[formcontrolname='wardId']"
+      },
+      "option": {
+        "label": "{ward}"
+      }
+    },
+    {
+      "id": "s5_click_apply_filters",
+      "intent": "click 'Apply Filters'",
+      "action": "click",
+      "target": {
+        "css": "form.form-horizontal > div.row > div.col-xl-2.col-md-2 > button.btn.btn-primary",
+        "role": "button",
+        "name": "/^\\s*Apply Filters\\s*$/i"
+      }
+    },
+    {
+      "id": "no_data",
+      "action": "end_if",
+      "intent": "the screen says there is no data",
+      "condition": {
+        "visible": {
+          "text": "/No Data Found|Data not Found/i"
+        }
+      },
+      "status": "NOT_FOUND"
+    },
+    {
+      "id": "s6_read_table_read_table",
+      "intent": "read_table ''",
+      "action": "read_table",
+      "only_selectable": false,
+      "save_as": "rows"
+    },
+    {
+      "id": "answer_evidence",
+      "action": "wait",
+      "condition": {
+        "url_contains": "/ipd/report/patient_list"
+      }
+    },
+    {
+      "id": "answer_rows",
+      "action": "read_table",
+      "only_selectable": false,
+      "save_as": "answer_rows"
+    }
+  ],
+  "skill": "ward.count_patients",
+  "portal": "ehospital",
+  "kind": "read",
+  "version": 1,
+  "inputs": {
+    "ward": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "source": "ask exploration 20261023-200625-ask-3275e4",
+  "answer_contract": {
+    "kind": "table",
+    "path": "/ipd/report/patient_list",
+    "headers": [
+      "SNo",
+      "UHID",
+      "IPD Id",
+      "Patient Name",
+      "Sex",
+      "Age",
+      "Department",
+      "Ward",
+      "Unit",
+      "BED",
+      "Doctor",
+      "Admission Date",
+      "Relative Name"
+    ]
+  },
+  "produces": "table",
+  "verified": {
+    "run": "replay 1",
+    "status": "OK",
+    "date": "2026-10-23T20:08:12"
+  }
+}

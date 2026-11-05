@@ -1,0 +1,65 @@
+{
+  "skill": "lis.fetch_lab_reports",
+  "portal": "ehospital",
+  "version": 3,
+  "kind": "read",
+  "produces": "lab_pdf",
+  "chooser": false,
+  "description": "Search a patient's lab results in LIS, tick the wanted rows on every result page (only new ones by default) and keep the hospital's own combined results PDF.",
+  "source": "v2 from a recorded walkthrough: UHID -> Search -> tick rows (column 'Action') on pages 1, 2 ... -> Print. No lab, registration or date choices needed.",
+  "verify_live": [
+    "dates column name (for a future 'latest date only' rule)"
+  ],
+  "inputs": {
+    "uhid": {"type": "string", "required": true},
+    "select": {"type": "string", "default": "new", "choices": ["new", "all"]}
+  },
+  "steps": [
+    {"id": "nav", "intent": "reach the Report search page", "action": "call_skill", "skill": "nav.lis_report"},
+    {
+      "id": "uhid",
+      "intent": "type the patient's UHID",
+      "action": "fill",
+      "target": {"css": "input[name='patient_uhid']"},
+      "value": "{uhid}"
+    },
+    {
+      "id": "search",
+      "intent": "search and wait for the portal to finish loading",
+      "action": "click",
+      "target": {"css": "form button.btn-primary-r", "has_text": "Search", "role": "button", "name": "/search/i"},
+      "after": {
+        "wait_loading": {"text": "/Please Wait/i", "appear_s": 3, "timeout_s": 90},
+        "wait_network_quiet": {"quiet_ms": 800, "timeout_s": 30}
+      },
+      "expect": {"any": [{"visible": {"css": "input[name='piscine']"}}, {"visible": {"text": "/Data not Found/i"}}]},
+      "timeout_s": 20
+    },
+    {
+      "id": "no_data",
+      "intent": "the portal says there are no results",
+      "action": "end_if",
+      "condition": {"all": [{"visible": {"text": "/Data not Found/i"}}, {"hidden": {"css": "input[name='piscine']"}}]},
+      "status": "NOT_FOUND"
+    },
+    {
+      "id": "pick",
+      "intent": "tick the wanted rows on every result page",
+      "action": "select_rows_paged",
+      "rule": "{select}",
+      "pager": {"css": "ul.pagination button.page-link"},
+      "key_columns": ["Sample No", "test Name"],
+      "save_as": "rows",
+      "on_empty": "NOT_FOUND",
+      "on_none": "NOTHING_NEW"
+    },
+    {
+      "id": "print",
+      "intent": "print and keep the hospital's own PDF",
+      "action": "capture_pdf",
+      "target": {"css": "button.btn-primary-r", "has_text": "Print", "role": "button", "name": "/^\\s*print\\s*$/i"},
+      "identifier": "{uhid}",
+      "pdf_timeout_s": 60
+    }
+  ]
+}

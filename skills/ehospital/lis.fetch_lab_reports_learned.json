@@ -1,0 +1,113 @@
+{
+  "skill": "lis.fetch_lab_reports_learned",
+  "portal": "ehospital",
+  "version": 3,
+  "kind": "read",
+  "produces": "lab_pdf",
+  "description": "Search a patient's lab results in LIS by UHID, tick the wanted result rows on every page, and keep the hospital's combined results PDF from Print.",
+  "source": "learned from recording 20261023-084909-record-18d62c (2026-10-23T15:11:31); repaired once after a failed replay",
+  "inputs": {
+    "uhid": {
+      "type": "string",
+      "required": true
+    },
+    "select": {
+      "type": "string",
+      "default": "new",
+      "choices": [
+        "new",
+        "all"
+      ]
+    },
+    "patient_name": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "steps": [
+    {
+      "id": "nav_to_report",
+      "intent": "navigate to LIS Report page",
+      "action": "call_skill",
+      "skill": "nav.lis_report"
+    },
+    {
+      "id": "fill_uhid",
+      "intent": "enter patient UHID",
+      "action": "fill",
+      "target": {
+        "css": "input[name='patient_uhid']"
+      },
+      "value": "{uhid}"
+    },
+    {
+      "id": "click_search",
+      "intent": "click search button to fetch lab reports",
+      "action": "click",
+      "target": {
+        "css": "button.btn.btn-primary-r",
+        "has_text": "Search",
+        "role": "button",
+        "name": "/^\\s*search\\s*$/i"
+      },
+      "after": {
+        "wait_loading": {
+          "text": "/Please Wait/i",
+          "appear_s": 3,
+          "timeout_s": 90
+        },
+        "wait_network_quiet": {
+          "quiet_ms": 800,
+          "timeout_s": 30
+        }
+      }
+    },
+    {
+      "id": "check_not_found",
+      "intent": "stop if no data found for given UHID",
+      "action": "end_if",
+      "condition": {
+        "visible": {
+          "text": "/Data not Found/i"
+        }
+      },
+      "status": "NOT_FOUND"
+    },
+    {
+      "id": "select_reports",
+      "intent": "select required report rows across pages",
+      "action": "select_rows_paged",
+      "rule": "{select}",
+      "name_column": "Patient Name",
+      "page_change_s": 20,
+      "pager": {
+        "css": "button.page-link"
+      },
+      "key_columns": [
+        "Sample No",
+        "test Name"
+      ],
+      "save_as": "rows",
+      "on_empty": "NOT_FOUND",
+      "on_none": "NOTHING_NEW"
+    },
+    {
+      "id": "print_pdf",
+      "intent": "click print and capture combined lab report PDF",
+      "action": "capture_pdf",
+      "target": {
+        "css": "button.btn.btn-primary-r",
+        "has_text": "Print",
+        "role": "button",
+        "name": "/^\\s*print\\s*$/i"
+      },
+      "identifier": "{uhid}",
+      "pdf_timeout_s": 60
+    }
+  ],
+  "verified": {
+    "run": "replay 2",
+    "status": "FOUND",
+    "date": "2026-10-23T16:31:04"
+  }
+}

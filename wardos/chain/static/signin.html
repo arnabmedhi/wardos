@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WardOS - sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0F1A2E; --ink-2: #48546A; --ink-3: #6B778C; --ground: #EDF6F2; --glow-1: #D2F0E3; --glow-2: #DDEBFA; --glow-3: #EEF6D8;
+    --blue: #2F6BFF; --red-ink: #C4262B; --red-wash: #FDECEC; --shadow: 0 1px 2px rgba(15,26,46,.05), 0 10px 28px -18px rgba(20,70,60,.3); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { color: var(--ink); font: 16px/1.5 Figtree, system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; min-height: 100dvh;
+    display: grid; place-items: center; padding: 24px 18px;
+    background: radial-gradient(900px 520px at 6% -10%, var(--glow-1), transparent 70%), radial-gradient(800px 500px at 96% 0%, var(--glow-2), transparent 70%),
+      radial-gradient(900px 600px at 60% 112%, var(--glow-3), transparent 70%), var(--ground); }
+  main { width: 100%; max-width: 380px; text-align: center; }
+  .mk { width: 62px; height: 62px; border-radius: 18px; margin: 0 auto 14px; background: linear-gradient(140deg, #19B37C, #2F6BFF); display: grid; place-items: center; box-shadow: 0 16px 30px -16px rgba(25,140,120,.9); }
+  .mk svg { width: 32px; height: 32px; stroke: #fff; stroke-width: 2.3; fill: none; stroke-linecap: round; }
+  h1 { margin: 0 0 4px; font-size: 34px; letter-spacing: -.045em; font-weight: 800; }
+  .lead { margin: 0 0 22px; color: var(--ink-2); }
+  .btn { display: flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 20px; border-radius: 15px; text-decoration: none; font-weight: 700; font-size: 16.5px;
+    letter-spacing: -.01em; color: #fff; background: linear-gradient(180deg, #3D78FF, #2A62F2); box-shadow: var(--shadow); }
+  .btn.alt { margin-top: 12px; color: var(--ink); background: #fff; }
+  .btn:active { transform: scale(.98); }
+  .btn:focus-visible { outline: 2.5px solid var(--blue); outline-offset: 3px; }
+  .note { margin: 16px 0 0; color: var(--ink-3); font-size: 14.5px; }
+  .msg { margin: 0 0 18px; padding: 12px 14px; border-radius: 14px; background: var(--red-wash); color: var(--red-ink); font-weight: 600; font-size: 15px; text-align: left; overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<main>
+  <div class="mk" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12M6 12h12M6 17h7"/></svg></div>
+  <h1>WardOS</h1>
+  <p class="lead">{{LEAD}}</p>
+  {{MESSAGE}}
+  {{DEMO}}
+  <a class="btn {{SIGNCLASS}}" href="/auth/login?next={{NEXT}}">{{BUTTON}}</a>
+  <p class="note">Only doctors added by the ward can sign in.</p>
+</main>
+</body>
+</html>

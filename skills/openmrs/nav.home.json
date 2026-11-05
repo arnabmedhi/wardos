@@ -1,0 +1,19 @@
+{
+  "skill": "nav.home",
+  "portal": "openmrs",
+  "version": 1,
+  "kind": "read",
+  "description": "Reach the OpenMRS home page. Used as the session health check.",
+  "source": "hand-written: the home page shows the 'App Menu' button only when logged in",
+  "inputs": {},
+  "steps": [
+    {
+      "id": "home",
+      "intent": "open the home page",
+      "action": "goto",
+      "url": "/openmrs/spa/home",
+      "expect": {"visible": {"role": "button", "name": "/app menu/i", "css": "button[aria-label='App Menu']"}},
+      "timeout_s": 40
+    }
+  ]
+}

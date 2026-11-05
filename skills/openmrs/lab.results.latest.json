@@ -1,0 +1,60 @@
+{
+  "skill": "lab.results.latest",
+  "portal": "openmrs",
+  "version": 2,
+  "kind": "read",
+  "description": "Get a patient's lab results (test, date, value with unit, reference range) from the chart's Results screen",
+  "source": "learned by ask exploration 30 Oct 2026; the patient-specific click and chart address made general by hand after its replay failed on a second patient",
+  "inputs": {
+    "uhid": {"type": "string", "required": true}
+  },
+  "steps": [
+    {"id": "home", "action": "home", "intent": "start from the dashboard"},
+    {
+      "id": "open_search",
+      "intent": "open the patient search",
+      "action": "click",
+      "target": {"css": "button[class*='patient-search-icon__searchIconButton']", "role": "button", "name": "/^\\s*Search patient\\s*$/i"},
+      "timeout_s": 30
+    },
+    {
+      "id": "type_patient",
+      "intent": "search for the patient by OpenMRS ID",
+      "action": "fill",
+      "target": {"placeholder": "Search for a patient by name or identifier number"},
+      "value": "{uhid}",
+      "timeout_s": 20
+    },
+    {
+      "id": "open_patient",
+      "intent": "open the patient found by that ID (the ID is unique, so one result)",
+      "action": "click",
+      "target": {"css": "a[class*='patientSearchResult'][href*='/patient/']"},
+      "expect": {"url_contains": "/chart"},
+      "timeout_s": 25
+    },
+    {
+      "id": "open_results",
+      "intent": "open the Results screen of the chart",
+      "action": "click",
+      "target": {"role": "link", "name": "/^\\s*Results\\s*$/i"},
+      "expect": {"url_contains": "/chart/"},
+      "timeout_s": 25
+    },
+    {
+      "id": "results_shown",
+      "action": "wait",
+      "condition": {"text_visible": "Test name"},
+      "timeout_s": 30
+    },
+    {
+      "id": "answer_rows",
+      "intent": "read every results table on the screen",
+      "action": "read_table",
+      "all_tables": true,
+      "only_selectable": false,
+      "save_as": "answer_rows"
+    }
+  ],
+  "produces": "table"
+}

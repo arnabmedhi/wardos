@@ -1,0 +1,18 @@
+# WardOS runtime dependencies. Exact installed versions are frozen in
+# requirements.lock.txt after each install (pip freeze).
+playwright>=1.55        # browser driver; uses the installed Google Chrome (channel="chrome"), no bundled browser needed
+pypdf>=5.0              # read text from hospital-generated PDFs
+python-dotenv>=1.0      # read local config/secret files without printing them
+pdfplumber>=0.11        # lab PDF text (record/labs.py)
+rapidfuzz>=3.0          # pillar 1: quote check, same-thing matching
+pillow>=10.0            # pillar 1: photo fingerprints (near-duplicate photos)
+google-api-python-client>=2.100   # pillar 1: Drive (case files), test-set builder
+google-auth-oauthlib>=1.2         # Drive token
+google-cloud-firestore>=2.19      # pillar 1: the record in the cloud
+itsdangerous>=2.1                 # pillar 1: signed sign-in cookie (chain/auth.py)
+
+# development
+pytest>=8.0
+pytest-asyncio>=0.24
+httpx>=0.27
+av>=12

@@ -1,0 +1,40 @@
+{
+  "skill": "beds.vacant.count",
+  "portal": "openmrs",
+  "version": 2,
+  "kind": "read",
+  "description": "Get the number of free (vacant) beds in Ward 2 from the Wards page counters",
+  "source": "v1 learned by ask exploration 20261023-123059-ask-f3f15c (answered for Outpatient Clinic, no beds); v2 30 Oct 2026: the OpenMRS login now works in Ward 2, and the answer is the page's own 'Free beds' counter",
+  "inputs": {},
+  "steps": [
+    {"id": "nav_home", "intent": "ensure we start from a healthy session state", "action": "call_skill", "skill": "nav.home"},
+    {
+      "id": "go_to_wards",
+      "intent": "navigate to the Wards page",
+      "action": "click",
+      "target": {
+        "css": "a.cds--side-nav__link[href*='/home/ward']",
+        "role": "link",
+        "name": "/^\\s*Wards\\s*$/i",
+        "has_text": "Wards"
+      },
+      "expect": {"url_contains": "/openmrs/spa/home/ward"},
+      "timeout_s": 20
+    },
+    {
+      "id": "answer_evidence",
+      "intent": "the page shows Ward 2 and its bed counters",
+      "action": "wait",
+      "condition": {"all": [{"url_contains": "/openmrs/spa/home/ward"}, {"text_visible": "Ward 2"}, {"text_visible": "Free beds"}]},
+      "timeout_s": 30
+    }
+  ],
+  "answer_contract": {
+    "kind": "stat",
+    "path": "/openmrs/spa/home/ward",
+    "label": "Free beds",
+    "location": "Ward 2",
+    "subject": "bed"
+  },
+  "produces": "table"
+}

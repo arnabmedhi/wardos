@@ -1,0 +1,70 @@
+{
+  "portal": "openmrs",
+  "version": 1,
+  "kind": "read",
+  "inputs": {},
+  "steps": [
+    {
+      "id": "nav_home",
+      "intent": "ensure we start from a healthy session state",
+      "action": "call_skill",
+      "skill": "nav.home"
+    },
+    {
+      "id": "open_locations",
+      "intent": "open the location picker",
+      "action": "goto",
+      "url": "/openmrs/spa/login/location",
+      "expect": {
+        "text_visible": "Select your location"
+      },
+      "timeout_s": 30
+    },
+    {
+      "id": "search_ward",
+      "intent": "search for Medicine Ward",
+      "action": "fill",
+      "target": {
+        "css": "input[type='search']"
+      },
+      "value": "Medicine"
+    },
+    {
+      "id": "pick_ward",
+      "intent": "choose Medicine Ward",
+      "action": "click",
+      "target": {
+        "text": "Medicine Ward",
+        "exact": true
+      },
+      "timeout_s": 20
+    },
+    {
+      "id": "enter_ward",
+      "intent": "accept the chosen location with the Enter key",
+      "action": "press",
+      "key": "Enter"
+    },
+    {
+      "id": "open_wards",
+      "intent": "open the Wards page",
+      "action": "goto",
+      "url": "/openmrs/spa/home/ward",
+      "expect": {
+        "text_visible": "Free beds"
+      },
+      "timeout_s": 40
+    }
+  ],
+  "source": "Written by hand from the Wards page (counters and admission times), checked against the live page",
+  "skill": "wards.medicine.admitted_today",
+  "description": "Number of patients admitted in Medicine Ward in the last 24 hours (admitted today), counted from the 'Admitted: … ago' lines of the Wards page",
+  "answer_contract": {
+    "kind": "admitted_recent",
+    "path": "/openmrs/spa/home/ward",
+    "label": "Patients",
+    "location": "Medicine Ward",
+    "subject": "patient"
+  },
+  "produces": "page"
+}

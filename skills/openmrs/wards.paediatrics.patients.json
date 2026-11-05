@@ -1,0 +1,70 @@
+{
+  "portal": "openmrs",
+  "version": 1,
+  "kind": "read",
+  "inputs": {},
+  "steps": [
+    {
+      "id": "nav_home",
+      "intent": "ensure we start from a healthy session state",
+      "action": "call_skill",
+      "skill": "nav.home"
+    },
+    {
+      "id": "open_locations",
+      "intent": "open the location picker",
+      "action": "goto",
+      "url": "/openmrs/spa/login/location",
+      "expect": {
+        "text_visible": "Select your location"
+      },
+      "timeout_s": 30
+    },
+    {
+      "id": "search_ward",
+      "intent": "search for Paediatrics Ward",
+      "action": "fill",
+      "target": {
+        "css": "input[type='search']"
+      },
+      "value": "Paediatrics"
+    },
+    {
+      "id": "pick_ward",
+      "intent": "choose Paediatrics Ward",
+      "action": "click",
+      "target": {
+        "text": "Paediatrics Ward",
+        "exact": true
+      },
+      "timeout_s": 20
+    },
+    {
+      "id": "enter_ward",
+      "intent": "accept the chosen location with the Enter key",
+      "action": "press",
+      "key": "Enter"
+    },
+    {
+      "id": "open_wards",
+      "intent": "open the Wards page",
+      "action": "goto",
+      "url": "/openmrs/spa/home/ward",
+      "expect": {
+        "text_visible": "Free beds"
+      },
+      "timeout_s": 40
+    }
+  ],
+  "source": "Written by hand from the Wards page (counters and admission times), checked against the live page",
+  "skill": "wards.paediatrics.patients",
+  "description": "Number of patients now admitted in Paediatrics Ward (how many patients are in Paediatrics), from the Wards page counter 'Patients'",
+  "answer_contract": {
+    "kind": "stat",
+    "path": "/openmrs/spa/home/ward",
+    "label": "Patients",
+    "location": "Paediatrics Ward",
+    "subject": "patient"
+  },
+  "produces": "page"
+}

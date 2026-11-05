@@ -1,0 +1,63 @@
+{
+  "skill": "nav.lis_report",
+  "portal": "ehospital",
+  "version": 3,
+  "kind": "read",
+  "description": "Reach the LIS Report patient-search page. Also used as the session health check: if this works, the session is healthy.",
+  "source": "v1 hand-written from observed portal facts; v2 adds closing the notice that covered a restored session (live run 23 Oct); v3 starts from the dashboard when the browser is in another module (a check from the IPD bed page failed and forced a needless re-login, live 23 Oct)",
+  "inputs": {},
+  "steps": [
+    {
+      "id": "already_there",
+      "intent": "stop if the Report search form is already open",
+      "action": "end_if",
+      "condition": {"visible": {"css": "input[name='patient_uhid']"}},
+      "status": "OK"
+    },
+    {
+      "id": "dashboard",
+      "intent": "go to the dashboard first unless already inside LIS (the module tiles are only there)",
+      "action": "home",
+      "skip_if": {"any": [{"url_contains": "/lis"},
+                          {"visible": {"text": "/^\\s*Lab Information System\\s*$/i"}}]}
+    },
+    {
+      "id": "close_notice",
+      "intent": "close the HPR notice if it covers the page",
+      "action": "click",
+      "target": {"role": "button", "name": "/^\\s*skip\\s*$/i", "text": "/^\\s*skip\\s*$/i"},
+      "skip_if": {"not": {"visible": {"role": "button", "name": "/^\\s*skip\\s*$/i", "text": "/^\\s*skip\\s*$/i"}}},
+      "on_fail": "continue",
+      "timeout_s": 5
+    },
+    {
+      "id": "open_lis",
+      "intent": "open the Lab Information System module (may open a new tab)",
+      "action": "click",
+      "target": {"role": "link", "name": "/Lab Information System/i", "text": "/^\\s*Lab Information System\\s*$/i"},
+      "new_tab": "maybe",
+      "skip_if": {"url_contains": "/lis"},
+      "expect": {"any": [{"url_contains": "/lis"}, {"visible": {"text": "/LIS Transaction/i"}}]},
+      "timeout_s": 20
+    },
+    {
+      "id": "open_menu",
+      "intent": "open the LIS Transaction menu until the Report link shows (often needs more than one click)",
+      "action": "click_until",
+      "target": {"css": ".iocn-link", "has_text": "LIS Transaction", "text": "/^\\s*LIS Transaction\\s*$/i"},
+      "until": {"visible": {"css": "a[href='/lis/report']"}},
+      "max_tries": 6,
+      "force": true,
+      "timeout_s": 20
+    },
+    {
+      "id": "open_report",
+      "intent": "open the Report page",
+      "action": "click",
+      "target": {"css": "a[href='/lis/report']", "role": "link", "name": "/^\\s*Report\\s*$/i"},
+      "force": true,
+      "expect": {"visible": {"css": "input[name='patient_uhid']"}},
+      "timeout_s": 25
+    }
+  ]
+}

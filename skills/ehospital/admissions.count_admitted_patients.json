@@ -1,0 +1,206 @@
+{
+  "description": "Count the number of patient admissions within a time window",
+  "steps": [
+    {
+      "id": "home",
+      "action": "home",
+      "intent": "start from the dashboard"
+    },
+    {
+      "id": "s1_click_ipd",
+      "intent": "click 'IPD'",
+      "action": "click",
+      "target": {
+        "css": "a[href='https://nextgen.ehospital.gov.in/ipd/']",
+        "role": "link",
+        "name": "/^\\s*IPD\\s*$/i"
+      },
+      "expect": {
+        "url_contains": "/ipd/"
+      }
+    },
+    {
+      "id": "s2_click_i",
+      "intent": "click ''",
+      "action": "click_until",
+      "target": {
+        "css": "div.iocn-link",
+        "has_text": "Report",
+        "text": "/^\\s*Report\\s*$/i"
+      },
+      "until": {
+        "visible": {
+          "css": "a[href='/ipd/report/admission']",
+          "role": "link",
+          "name": "/^\\s*Admissions\\s*$/i"
+        }
+      },
+      "max_tries": 6
+    },
+    {
+      "id": "s3_click_admissions",
+      "intent": "click 'Admissions'",
+      "action": "click",
+      "target": {
+        "css": "a[href='/ipd/report/admission']",
+        "role": "link",
+        "name": "/^\\s*Admissions\\s*$/i"
+      },
+      "expect": {
+        "url_contains": "/ipd/report/admission"
+      }
+    },
+    {
+      "id": "s4_typed_startdate",
+      "intent": "typed 'startDate'",
+      "action": "fill",
+      "target": {
+        "css": "input[formcontrolname='startDate']"
+      },
+      "value": "{from_date}"
+    },
+    {
+      "id": "s5_typed_enddate",
+      "intent": "typed 'endDate'",
+      "action": "fill",
+      "target": {
+        "css": "input[formcontrolname='endDate']"
+      },
+      "value": "{to_date}"
+    },
+    {
+      "id": "s6_click_open_calendar",
+      "intent": "click 'Open calendar'",
+      "action": "click",
+      "target": {
+        "css": "div.col-xl-3.col-md-4:has-text(\"FROM Date\") button[aria-label=\"Open calendar\"]",
+        "role": "button",
+        "name": "/^\\s*Open calendar\\s*$/i",
+        "nth": 0
+      }
+    },
+    {
+      "id": "s7_click_done",
+      "intent": "click 'done'",
+      "action": "click",
+      "target": {
+        "css": "div.cdk-overlay-pane.mat-datepicker-popup > ngx-mat-datetime-content.mat-datepicker-content > div.actions > button.mat-focus-indicator.mat-button",
+        "role": "button",
+        "name": "/^\\s*done\\s*$/i"
+      }
+    },
+    {
+      "id": "s8_click_open_calendar",
+      "intent": "click 'Open calendar'",
+      "action": "click",
+      "target": {
+        "css": "div.col-xl-3.col-md-4:has-text(\"TO Date\") button[aria-label=\"Open calendar\"]",
+        "role": "button",
+        "name": "/^\\s*Open calendar\\s*$/i",
+        "nth": 1
+      }
+    },
+    {
+      "id": "s9_click_done",
+      "intent": "click 'done'",
+      "action": "click",
+      "target": {
+        "css": "div.cdk-overlay-pane.mat-datepicker-popup > ngx-mat-datetime-content.mat-datepicker-content > div.actions > button.mat-focus-indicator.mat-button",
+        "role": "button",
+        "name": "/^\\s*done\\s*$/i"
+      }
+    },
+    {
+      "id": "s10_click_search",
+      "intent": "click 'Search'",
+      "action": "click",
+      "target": {
+        "css": "form.form-horizontal > div.row > div.col-xl-1.col-md-2 > button.btn.btn-primary",
+        "role": "button",
+        "name": "/^\\s*Search\\s*$/i"
+      }
+    },
+    {
+      "id": "no_data",
+      "action": "end_if",
+      "intent": "the screen says there is no data",
+      "condition": {
+        "visible": {
+          "text": "/No Data Found|Data not Found|No record found/i"
+        }
+      },
+      "status": "NOT_FOUND"
+    },
+    {
+      "id": "s11_choose_10",
+      "intent": "choose '10'",
+      "action": "select",
+      "target": {
+        "css": "div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix > mat-select.mat-select",
+        "role": "combobox",
+        "name": "/^\\s*Items per page:\\s*$/i"
+      },
+      "option": {
+        "label": "50"
+      }
+    },
+    {
+      "id": "answer_evidence",
+      "action": "wait",
+      "condition": {
+        "url_contains": "/ipd/report/admission"
+      }
+    }
+  ],
+  "skill": "admissions.count_admitted_patients",
+  "portal": "ehospital",
+  "kind": "read",
+  "version": 1,
+  "inputs": {
+    "from_date": {
+      "type": "string",
+      "required": true
+    },
+    "to_date": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "source": "ask exploration 20261023-200201-ask-3aa486",
+  "answer_contract": {
+    "kind": "total",
+    "path": "/ipd/report/admission",
+    "headers": [
+      "Patient admitted during the reporting pe",
+      "SNo",
+      "UHID",
+      "IPD Id",
+      "Patient Name",
+      "Gender",
+      "Age",
+      "Mobile",
+      "Guardian Name",
+      "Address",
+      "ABHA Id",
+      "MLC",
+      "Billing Type",
+      "Ration Card Type/No.",
+      "Marital Status",
+      "Admit Date Time",
+      "Department",
+      "Unit",
+      "Ward",
+      "Bed No.",
+      "Doctor",
+      "Referring OPD Dept",
+      "Scheme",
+      "Status"
+    ]
+  },
+  "produces": "table",
+  "verified": {
+    "run": "replay 1",
+    "status": "OK",
+    "date": "2026-10-23T20:06:25"
+  }
+}

@@ -1,0 +1,5 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-f", "Dockerfile.chain", "-t", "asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/wardos-chain:$_TAG", "."]
+images: ["asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/wardos-chain:$_TAG"]
+substitutions: {_TAG: "latest"}

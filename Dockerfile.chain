@@ -1,0 +1,8 @@
+# WardOS app and API (Cloud Run). No secrets and no tests in the image; settings come from environment variables.
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements-chain.txt .
+RUN pip install --no-cache-dir -r requirements-chain.txt
+COPY wardos ./wardos
+ENV PYTHONUNBUFFERED=1 WARDOS_CHAIN_DIR=/tmp/chain
+CMD exec uvicorn wardos.chain.api:app --host 0.0.0.0 --port ${PORT:-8080}

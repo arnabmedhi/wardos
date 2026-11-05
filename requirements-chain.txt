@@ -1,0 +1,16 @@
+# Pillar 1 cloud service only (Dockerfile.chain); versions as in requirements.lock.txt where present.
+google-cloud-firestore>=2.19
+google-api-python-client>=2.100
+google-auth-oauthlib>=1.2
+requests>=2.31
+pdfplumber>=0.11
+rapidfuzz>=3.0
+pillow>=10.0
+python-dotenv>=1.0
+fastapi>=0.110
+uvicorn>=0.30
+python-multipart>=0.0.9
+itsdangerous>=2.1
+pywebpush>=2.0,<3
+httpx>=0.27
+av>=12
