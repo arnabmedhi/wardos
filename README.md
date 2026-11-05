@@ -79,7 +79,7 @@ Plain code, with no model, does the rest: replaying skills, reading answers off 
 
 ## How it works
 
-<p align="center"><img src="docs/images/architecture.svg" alt="WardOS architecture" width="760"></p>
+<p align="center"><img src="docs/images/architecture.svg" alt="WardOS architecture" width="100%"></p>
 
 ### How the agent works
 
