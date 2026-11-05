@@ -1,8 +1,34 @@
+<div align="center">
+
+<img src="wardos/chain/static/icons/icon-512.png" alt="WardOS logo" width="96">
+
 # WardOS
 
 **An agentic OS that handles a patient's paperwork from admission to discharge, for hospitals that still run on paper.**
 
-[Demo video](VIDEO_LINK_PLACEHOLDER) · [Live guest demo (no login, names changed)](https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1)
+[![Demo video](https://img.shields.io/badge/Demo_video-watch-red?style=for-the-badge)](VIDEO_LINK_PLACEHOLDER)
+[![Live demo](https://img.shields.io/badge/Live_demo-no_login-2ea44f?style=for-the-badge)](https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1)
+[![Meta Muse Spark](https://img.shields.io/badge/Meta-Muse_Spark-0866ff?style=for-the-badge)](#how-meta-ai-is-used)
+[![MIT licence](https://img.shields.io/badge/Licence-MIT-lightgrey?style=for-the-badge)](LICENSE)
+
+</div>
+
+<table>
+<tr>
+<td width="33%"><img src="docs/images/dashboard.jpg" alt="Ward dashboard"></td>
+<td width="33%"><img src="docs/images/alert.jpg" alt="Potassium 2.6 alert with graph"></td>
+<td width="33%"><img src="docs/images/skill.jpg" alt="Saved skill steps"></td>
+</tr>
+<tr>
+<td align="center"><sub>The ward dashboard (demo, names changed)</sub></td>
+<td align="center"><sub>A red Potassium 2.6 alert with its graph</sub></td>
+<td align="center"><sub>The steps of a saved skill</sub></td>
+</tr>
+</table>
+
+[Live guest demo (no login, names changed)](https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1) · [Demo video](VIDEO_LINK_PLACEHOLDER)
+
+---
 
 Built by a doctor at AIIMS Rishikesh, one of India's flagship government hospitals. Powered by Meta Muse Spark.
 
@@ -83,6 +109,8 @@ The discharge summary document is made by a separate service, started as a Cloud
 - **Answers from a site are read by code from the screen,** not taken from the model's words. A new skill is saved only if a replay gives the same answer.
 - **Sign-in:** doctors use Google sign-in and must be on the ward's list. The local test sign-in refuses to start on Cloud Run.
 
+---
+
 ## Run it yourself
 
 You need Python 3.12. Google Chrome is needed only for the hospital robot and browser tests.
@@ -134,6 +162,8 @@ To include the tests that open Chrome, leave out the two `--ignore` options.
 | `tests/`, `tools/tests/` | Offline tests and browser tests on local pages |
 | `tools/` | Demo-site seeding and helper scripts |
 | `cloud/` | Container files for the cloud robots |
+
+---
 
 ## Limits
 
