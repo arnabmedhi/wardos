@@ -1,14 +1,24 @@
 # WardOS
 
-**An agentic OS for hospital ward doctors: it reads the paper notes, works the hospital website, writes the discharge summary and wakes the doctor only for danger.**
+**An agentic OS that handles a patient's paperwork from admission to discharge, for hospitals that still run on paper.**
 
 [Demo video](VIDEO_LINK_PLACEHOLDER) · [Live guest demo (no login, names changed)](https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1)
 
+Built by a doctor at AIIMS Rishikesh, one of India's flagship government hospitals. Powered by Meta Muse Spark.
+
 ## The problem
 
-A doctor at a government hospital in India works from paper notes. Lab reports sit behind a government website with a CAPTCHA and an OTP, one patient at a time. At the end of each stay, a long discharge summary is typed by hand.
+Most hospital AI runs on electronic records. Most hospitals in developing countries don't have them. Even at AIIMS, every note and ward round is written by hand.
 
-## What WardOS does
+So the doctor becomes the API:
+
+- Lab reports sit behind a government website with a CAPTCHA and an OTP, one patient at a time.
+- Facts are scattered across a thick paper file.
+- One discharge summary takes 40-60 minutes to type by hand.
+
+## How WardOS helps
+
+The doctor photographs the file and speaks or types what they need. WardOS keeps one living record for each patient, does the website work, and writes the summary. A doctor always checks and decides.
 
 | | |
 |---|---|
@@ -42,22 +52,25 @@ Plain code, with no model, does the rest: replaying skills, reading answers off 
 
 ## Architecture
 
-```
-   Doctor: phone or laptop web app
-                 |
-                 v
-   Chain server (FastAPI, wardos/chain/api.py)
-     |            |              |                |
-     v            v              v                v
-   Reading     Agents and     Record store      Alerts
-   photo ->    task queue     SQLite locally    web push,
-   text ->     (planner,      or Firestore      danger only
-   facts       job list)      files: folder
-   (Muse)         |           or Drive
-                  v
-   Hospital robot (wardos/agent, wardos/hospital)
-     skills -> Chrome -> write firewall -> hospital website (read-only)
-     Muse Spark: only to choose, learn or repair
+```mermaid
+flowchart TD
+    D["Doctor: phone or laptop web app"] -->|"photos, voice, one sentence"| S["Chain server: FastAPI<br/>wardos/chain/api.py"]
+    S --> R["Reading<br/>photo to text to facts"]
+    S --> P["Agents and task queue<br/>planner and job list"]
+    S --> A["Alerts<br/>web push, danger only"]
+    R --> M["Meta Muse Spark<br/>wardos/models.py"]
+    P --> M
+    R --> DB[("Patient record<br/>every value linked to its source<br/>SQLite locally or Firestore")]
+    DB --> A
+    DB --> F["Discharge summary fields"]
+    F --> M
+    P --> W["Hospital robot<br/>wardos/agent, wardos/hospital"]
+    W --> K["Saved skills<br/>replayed by plain code"]
+    W -->|"only to choose, learn or repair"| M
+    K --> C["Chrome"]
+    C --> FW["Write firewall"]
+    FW -->|"read-only"| H["Hospital website, no API"]
+    C -->|"values read by code"| DB
 ```
 
 The discharge summary document is made by a separate service, started as a Cloud Run Job by `wardos/chain/finals.py`.
