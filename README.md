@@ -4,7 +4,7 @@
 
 <p align="center"><b>An agentic OS that handles a patient's paperwork from admission to discharge, for hospitals that still run on paper.</b></p>
 
-<p align="center"><a href="https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1"><b>Try the live demo →</b></a> (no login, names changed) · <a href="VIDEO_LINK_PLACEHOLDER"><b>Watch the demo video</b></a></p>
+<p align="center"><a href="https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1"><b>Try the live demo →</b></a> (no login, names changed) · <a href="https://youtu.be/aTdyeypfkf4"><b>Watch the demo video</b></a></p>
 
 <p align="center"><img src="docs/images/demo.gif" alt="The agent working on the Demo hospital" width="100%"></p>
 
