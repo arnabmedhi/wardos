@@ -13,20 +13,37 @@
 
 </div>
 
+<h1 align="center">WardOS</h1>
+
+<p align="center"><b>An agentic OS that handles a patient's paperwork from admission to discharge, for hospitals that still run on paper.</b></p>
+
+<p align="center"><a href="https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1"><b>Try the live demo →</b></a> (no login, names changed) · <a href="VIDEO_LINK_PLACEHOLDER"><b>Watch the demo video</b></a></p>
+
+<p align="center"><img src="docs/images/demo.gif" alt="The agent working on the Demo hospital" width="100%"></p>
+
+## What the doctor does
+
+1. Photograph the paper file, or speak or type what you need.
+2. WardOS reads it into one living record for the patient.
+3. The agent does the hospital-website work, and watches a test overnight.
+4. One click fills the discharge summary form. You check and decide.
+
 <table>
 <tr>
-<td width="33%"><img src="docs/images/dashboard.jpg" alt="Ward dashboard"></td>
-<td width="33%"><img src="docs/images/alert.jpg" alt="Potassium 2.6 alert with graph"></td>
-<td width="33%"><img src="docs/images/skill.jpg" alt="Saved skill steps"></td>
+<td width="50%"><img src="docs/images/dashboard.jpg" alt="Ward dashboard"><br><sub>The ward dashboard (demo, names changed)</sub></td>
+<td width="50%"><img src="docs/images/alert.jpg" alt="Potassium 2.6 alert with graph"><br><sub>A red Potassium 2.6 alert with its graph</sub></td>
 </tr>
 <tr>
-<td align="center"><sub>The ward dashboard (demo, names changed)</sub></td>
-<td align="center"><sub>A red Potassium 2.6 alert with its graph</sub></td>
-<td align="center"><sub>The steps of a saved skill</sub></td>
+<td width="50%"><img src="docs/images/skill.jpg" alt="Saved skill steps"><br><sub>The steps of a saved skill</sub></td>
+<td width="50%"></td>
 </tr>
 </table>
 
-[Live guest demo (no login, names changed)](https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1) · [Demo video](VIDEO_LINK_PLACEHOLDER)
+## By hand vs with WardOS
+
+| | By hand | With WardOS |
+|---|---|---|
+| One discharge summary | 40-60 min | 4-6 min |
 
 ---
 
@@ -76,30 +93,26 @@ All model calls in WardOS are Muse Spark. They go through one class, `MuseClient
 
 Plain code, with no model, does the rest: replaying skills, reading answers off the screen, checking quotes and dates, merging facts, and the danger rule.
 
-## Architecture
+## How it works
 
-```mermaid
-flowchart TD
-    D["Doctor: phone or laptop web app"] -->|"photos, voice, one sentence"| S["Chain server: FastAPI<br/>wardos/chain/api.py"]
-    S --> R["Reading<br/>photo to text to facts"]
-    S --> P["Agents and task queue<br/>planner and job list"]
-    S --> A["Alerts<br/>web push, danger only"]
-    R --> M["Meta Muse Spark<br/>wardos/models.py"]
-    P --> M
-    R --> DB[("Patient record<br/>every value linked to its source<br/>SQLite locally or Firestore")]
-    DB --> A
-    DB --> F["Discharge summary fields"]
-    F --> M
-    P --> W["Hospital robot<br/>wardos/agent, wardos/hospital"]
-    W --> K["Saved skills<br/>replayed by plain code"]
-    W -->|"only to choose, learn or repair"| M
-    K --> C["Chrome"]
-    C --> FW["Write firewall"]
-    FW -->|"read-only"| H["Hospital website, no API"]
-    C -->|"values read by code"| DB
-```
+<p align="center"><img src="docs/images/architecture.svg" alt="WardOS architecture" width="640"></p>
+
+- **Doctor:** phone or laptop web app. Photos, voice and one sentence go in.
+- **Server and record:** a FastAPI chain server (`wardos/chain/api.py`). Reading turns photo to text to facts, and every value is linked to its source. SQLite locally or Firestore. Alerts go out by web push, danger only.
+- **Agents and planner:** a task queue and job list; the planner reviews each job result.
+- **Meta Muse Spark:** all model calls, through `wardos/models.py`.
+- **Hospital robot:** `wardos/agent` and `wardos/hospital`. Saved skills are replayed by plain code in Chrome, behind a write firewall.
+- **Hospital website:** read-only, no API. Values are read by code into the record.
 
 The discharge summary document is made by a separate service, started as a Cloud Run Job by `wardos/chain/finals.py`.
+
+## Engineering highlights
+
+- **One door to the model:** every call is Muse Spark, through `MuseClient`.
+- **Learns once, replays without a model:** a new job becomes a saved skill, kept only if a replay gives the same answer.
+- **Read-only robot:** a network firewall blocks data-changing requests.
+- **Every value links to its source:** the code checks that the quote is really on the page.
+- **Answers read by code:** from the screen, not from the model's words.
 
 ## Safety
 
