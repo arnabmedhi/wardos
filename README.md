@@ -1,17 +1,4 @@
-<div align="center">
-
-<img src="wardos/chain/static/icons/icon-512.png" alt="WardOS logo" width="96">
-
-# WardOS
-
-**An agentic OS that handles a patient's paperwork from admission to discharge, for hospitals that still run on paper.**
-
-[![Demo video](https://img.shields.io/badge/Demo_video-watch-red?style=for-the-badge)](VIDEO_LINK_PLACEHOLDER)
-[![Live demo](https://img.shields.io/badge/Live_demo-no_login-2ea44f?style=for-the-badge)](https://wardos-chain-yoo4mmceqq-el.a.run.app/demo/start?fresh=1)
-[![Meta Muse Spark](https://img.shields.io/badge/Meta-Muse_Spark-0866ff?style=for-the-badge)](#how-meta-ai-is-used)
-[![MIT licence](https://img.shields.io/badge/Licence-MIT-lightgrey?style=for-the-badge)](LICENSE)
-
-</div>
+<p align="center"><img src="wardos/chain/static/icons/icon-512.png" alt="WardOS logo" width="96"></p>
 
 <h1 align="center">WardOS</h1>
 
@@ -21,7 +8,7 @@
 
 <p align="center"><img src="docs/images/demo.gif" alt="The agent working on the Demo hospital" width="100%"></p>
 
-## What the doctor does
+## The agent works for the doctor
 
 1. Photograph the paper file, or speak or type what you need.
 2. WardOS reads it into one living record for the patient.
@@ -30,12 +17,9 @@
 
 <table>
 <tr>
-<td width="50%"><img src="docs/images/dashboard.jpg" alt="Ward dashboard"><br><sub>The ward dashboard (demo, names changed)</sub></td>
-<td width="50%"><img src="docs/images/alert.jpg" alt="Potassium 2.6 alert with graph"><br><sub>A red Potassium 2.6 alert with its graph</sub></td>
-</tr>
-<tr>
-<td width="50%"><img src="docs/images/skill.jpg" alt="Saved skill steps"><br><sub>The steps of a saved skill</sub></td>
-<td width="50%"></td>
+<td width="33%"><img src="docs/images/dashboard.jpg" alt="Ward dashboard"><br><sub><b>Ward today.</b> Demo, names changed.</sub></td>
+<td width="33%"><img src="docs/images/alert.jpg" alt="Potassium 2.6 alert with graph"><br><sub><b>The agent watches.</b> It alerts only on danger.</sub></td>
+<td width="33%"><img src="docs/images/skill.jpg" alt="Saved skill steps"><br><sub><b>The agent learns.</b> Its steps are saved as a skill.</sub></td>
 </tr>
 </table>
 
