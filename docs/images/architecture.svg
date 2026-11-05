@@ -1,26 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 640" font-family="Segoe UI, Helvetica, Arial, sans-serif">
-<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker></defs>
-<rect width="760" height="640" rx="18" fill="#f4faf6"/>
-<g text-anchor="middle">
-<rect x="150" y="24" width="360" height="62" rx="14" fill="#fff" stroke="#2563eb" stroke-width="2"/>
-<text x="330" y="52" font-size="17" font-weight="700" fill="#1e293b">Doctor</text><text x="330" y="73" font-size="13" fill="#475569">photos, voice, one sentence</text>
-<rect x="150" y="116" width="360" height="62" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-<text x="330" y="144" font-size="17" font-weight="700" fill="#1e293b">WardOS server and record</text><text x="330" y="165" font-size="13" fill="#475569">every value linked to its source</text>
-<rect x="150" y="208" width="360" height="62" rx="14" fill="#d1f2e0" stroke="#10b981" stroke-width="2"/>
-<text x="330" y="236" font-size="17" font-weight="700" fill="#1e293b">Agents and planner</text><text x="330" y="257" font-size="13" fill="#475569">job list, review after each job</text>
-<rect x="150" y="300" width="360" height="62" rx="14" fill="#2563eb"/>
-<text x="330" y="328" font-size="17" font-weight="700" fill="#fff">Meta Muse Spark</text><text x="330" y="349" font-size="13" fill="#dbeafe">reads, plans, chooses, learns</text>
-<rect x="150" y="392" width="360" height="62" rx="14" fill="#d1f2e0" stroke="#10b981" stroke-width="2"/>
-<text x="330" y="420" font-size="17" font-weight="700" fill="#1e293b">Hospital robot</text><text x="330" y="441" font-size="13" fill="#475569">saved skills, Chrome, write firewall</text>
-<rect x="150" y="484" width="360" height="62" rx="14" fill="#fff" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="330" y="512" font-size="17" font-weight="700" fill="#1e293b">Hospital website</text><text x="330" y="533" font-size="13" fill="#475569">no API, read-only</text>
-<g stroke="#2563eb" stroke-width="2" marker-end="url(#a)"><path d="M330 86V114"/><path d="M330 178V206"/><path d="M330 270V298"/><path d="M330 362V390"/><path d="M330 454V482"/></g>
-<rect x="560" y="116" width="170" height="62" rx="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
-<text x="645" y="144" font-size="15" font-weight="700" fill="#991b1b">Alerts</text><text x="645" y="165" font-size="12" fill="#991b1b">danger only</text>
-<path d="M510 147H558" stroke="#dc2626" stroke-width="2" marker-end="url(#a)" fill="none"/>
-<path d="M510 423H620V239H512" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#a)"/>
-<text x="680" y="318" font-size="14" font-weight="700" fill="#2563eb">Agent loop</text>
-<text x="680" y="340" font-size="12" fill="#475569">plan, act, check,</text><text x="680" y="357" font-size="12" fill="#475569">learn or repair</text>
-<text x="330" y="590" font-size="13" fill="#475569">Muse Spark is used only to choose, learn or repair.</text>
-<text x="330" y="610" font-size="13" fill="#475569">Plain code replays skills and reads the answers.</text>
-</g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1690" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><filter id="sh" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.14"/></filter>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f8ff"/><stop offset="1" stop-color="#eefaf4"/></linearGradient>
+<linearGradient id="bl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient>
+<marker id="ab" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M1,1 L11,6 L1,11 z" fill="#475569"/></marker></defs>
+<rect width="1000" height="1690" rx="28" fill="url(#bg)"/>
+<rect x="300" y="30" width="400" height="84" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="500.0" y="81.0" text-anchor="middle" font-size="26" font-weight="700" fill="#064e3b">Doctor</text>
+<rect x="300" y="30" width="400" height="84" rx="22" fill="#fff" stroke="#93c5fd" stroke-width="2.5" filter="url(#sh)"/><text x="500" y="68" text-anchor="middle" font-size="30" font-weight="700" fill="#0f172a">Doctor</text><text x="500" y="98" text-anchor="middle" font-size="20" fill="#475569">photos, voice, one sentence</text>
+<circle cx="170" cy="150" r="10" fill="url(#bl)"/><text x="190" y="158" font-size="21" fill="#334155">Meta Muse Spark</text>
+<circle cx="440" cy="150" r="10" fill="#34d399"/><text x="460" y="158" font-size="21" fill="#334155">Plain code, no model</text>
+<circle cx="740" cy="150" r="10" fill="#ef4444"/><text x="760" y="158" font-size="21" fill="#334155">Alert, danger only</text>
+<rect x="40" y="190" width="920" height="170" rx="32" fill="#fff" stroke="#cbd5e1" stroke-width="2" filter="url(#sh)"/>
+<text x="72" y="236" font-size="26" font-weight="700" fill="#334155">Doctor sends a photo</text>
+<rect x="61.0" y="260" width="150" height="72" rx="22" fill="url(#bl)" stroke="#1d4ed8" stroke-width="2.5" filter="url(#sh)"/>
+<text x="136.0" y="305.0" text-anchor="middle" font-size="23" font-weight="700" fill="#fff">Read photo</text>
+<path d="M215.0 296L239.0 296" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="243.0" y="260" width="150" height="72" rx="22" fill="url(#bl)" stroke="#1d4ed8" stroke-width="2.5" filter="url(#sh)"/>
+<text x="318.0" y="305.0" text-anchor="middle" font-size="23" font-weight="700" fill="#fff">Extract facts</text>
+<path d="M397.0 296L421.0 296" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="425.0" y="260" width="150" height="72" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="500.0" y="305.0" text-anchor="middle" font-size="23" font-weight="700" fill="#064e3b">Check quote</text>
+<path d="M579.0 296L603.0 296" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="607.0" y="260" width="150" height="72" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="682.0" y="305.0" text-anchor="middle" font-size="23" font-weight="700" fill="#064e3b">Record</text>
+<path d="M761.0 296L785.0 296" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="789.0" y="260" width="150" height="72" rx="22" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5" filter="url(#sh)"/>
+<text x="864.0" y="305.0" text-anchor="middle" font-size="23" font-weight="700" fill="#991b1b">Alert</text>
+<rect x="40" y="400" width="920" height="812" rx="32" fill="#ecfdf5" stroke="#34d399" stroke-width="3" filter="url(#sh)"/>
+<text x="72" y="446" font-size="30" font-weight="700" fill="#047857">Doctor gives a command: the agent loop</text>
+<rect x="150" y="470" width="540" height="76" rx="22" fill="url(#bl)" stroke="#1d4ed8" stroke-width="2.5" filter="url(#sh)"/>
+<text x="420.0" y="505.0" text-anchor="middle" font-size="27" font-weight="700" fill="#fff">Plan into jobs</text><text x="420.0" y="535.0" text-anchor="middle" font-size="20" fill="#dbeafe">one sentence becomes a list of jobs</text>
+<rect x="150" y="576" width="540" height="76" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="420.0" y="611.0" text-anchor="middle" font-size="27" font-weight="700" fill="#064e3b">Queue and worker</text><text x="420.0" y="641.0" text-anchor="middle" font-size="20" fill="#047857">the worker takes the next job</text>
+<path d="M420 546L420 573" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="150" y="682" width="540" height="76" rx="22" fill="url(#bl)" stroke="#1d4ed8" stroke-width="2.5" filter="url(#sh)"/>
+<text x="420.0" y="717.0" text-anchor="middle" font-size="27" font-weight="700" fill="#fff">Brain chooses</text><text x="420.0" y="747.0" text-anchor="middle" font-size="20" fill="#dbeafe">saved skill · explore · ask back · refuse</text>
+<path d="M420 652L420 679" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="150" y="788" width="540" height="76" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="420.0" y="823.0" text-anchor="middle" font-size="27" font-weight="700" fill="#064e3b">Replay in Chrome</text><text x="420.0" y="853.0" text-anchor="middle" font-size="20" fill="#047857">through the write firewall</text>
+<path d="M420 758L420 785" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="150" y="894" width="540" height="76" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="420.0" y="929.0" text-anchor="middle" font-size="27" font-weight="700" fill="#064e3b">Read values</text><text x="420.0" y="959.0" text-anchor="middle" font-size="20" fill="#047857">read off the screen by code</text>
+<path d="M420 864L420 891" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="150" y="1000" width="540" height="76" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="420.0" y="1035.0" text-anchor="middle" font-size="27" font-weight="700" fill="#064e3b">Record</text><text x="420.0" y="1065.0" text-anchor="middle" font-size="20" fill="#047857">every value linked to its source</text>
+<path d="M420 970L420 997" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="150" y="1106" width="540" height="76" rx="22" fill="url(#bl)" stroke="#1d4ed8" stroke-width="2.5" filter="url(#sh)"/>
+<text x="420.0" y="1141.0" text-anchor="middle" font-size="27" font-weight="700" fill="#fff">Review decides</text><text x="420.0" y="1171.0" text-anchor="middle" font-size="20" fill="#dbeafe">next · retry · other skill · ask · stop</text>
+<path d="M420 1076L420 1103" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<path d="M694 1144H770V720H696" fill="none" stroke="#2563eb" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round" marker-end="url(#ab)"/>
+<text x="790" y="924.0" font-size="22" font-weight="700" fill="#2563eb">next job</text><text x="790" y="952.0" font-size="20" fill="#475569">or stop</text>
+<rect x="40" y="1252" width="920" height="170" rx="32" fill="#fff" stroke="#cbd5e1" stroke-width="2" filter="url(#sh)"/>
+<text x="72" y="1298" font-size="26" font-weight="700" fill="#334155">New job, or a saved skill that broke</text>
+<rect x="60.0" y="1322" width="190" height="72" rx="22" fill="url(#bl)" stroke="#1d4ed8" stroke-width="2.5" filter="url(#sh)"/>
+<text x="155.0" y="1367.0" text-anchor="middle" font-size="23" font-weight="700" fill="#fff">Explore</text>
+<path d="M254.0 1358L286.0 1358" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="290.0" y="1322" width="190" height="72" rx="22" fill="url(#bl)" stroke="#1d4ed8" stroke-width="2.5" filter="url(#sh)"/>
+<text x="385.0" y="1367.0" text-anchor="middle" font-size="23" font-weight="700" fill="#fff">Compile skill</text>
+<path d="M484.0 1358L516.0 1358" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="520.0" y="1322" width="190" height="72" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="615.0" y="1367.0" text-anchor="middle" font-size="23" font-weight="700" fill="#064e3b">Verify by replay</text>
+<path d="M714.0 1358L746.0 1358" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="750.0" y="1322" width="190" height="72" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="845.0" y="1367.0" text-anchor="middle" font-size="23" font-weight="700" fill="#064e3b">Save skill</text>
+<rect x="40" y="1462" width="920" height="170" rx="32" fill="#fff" stroke="#cbd5e1" stroke-width="2" filter="url(#sh)"/>
+<text x="72" y="1508" font-size="26" font-weight="700" fill="#334155">Doctor asks to watch a test</text>
+<rect x="60.0" y="1532" width="190" height="72" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="155.0" y="1577.0" text-anchor="middle" font-size="23" font-weight="700" fill="#064e3b">Watch</text>
+<path d="M254.0 1568L286.0 1568" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="290.0" y="1532" width="190" height="72" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="385.0" y="1577.0" text-anchor="middle" font-size="23" font-weight="700" fill="#064e3b">Check again</text>
+<path d="M484.0 1568L516.0 1568" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="520.0" y="1532" width="190" height="72" rx="22" fill="#d1fae5" stroke="#10b981" stroke-width="2.5" filter="url(#sh)"/>
+<text x="615.0" y="1577.0" text-anchor="middle" font-size="23" font-weight="700" fill="#064e3b">Danger only</text>
+<path d="M714.0 1568L746.0 1568" stroke="#475569" stroke-width="3.5" marker-end="url(#ab)"/>
+<rect x="750.0" y="1532" width="190" height="72" rx="22" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5" filter="url(#sh)"/>
+<text x="845.0" y="1577.0" text-anchor="middle" font-size="23" font-weight="700" fill="#991b1b">Alert doctor</text>
+</svg>

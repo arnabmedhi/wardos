@@ -79,7 +79,23 @@ Plain code, with no model, does the rest: replaying skills, reading answers off 
 
 ## How it works
 
-<p align="center"><img src="docs/images/architecture.svg" alt="WardOS architecture" width="640"></p>
+<p align="center"><img src="docs/images/architecture.svg" alt="WardOS architecture" width="760"></p>
+
+### How the agent works
+
+Blue steps use Meta Muse Spark. Green steps are plain code. Red is an alert.
+
+- **Photos.** `read_photos` in `wardos/chain/read.py` reads each page word for word. `extract_facts` in `wardos/chain/extract.py` turns the text into candidate facts, each with its exact quote. Code checks that the quote is on the page before the fact enters the record.
+- **Commands.** `plan` in `wardos/chain/agent_jobs.py` has Muse read every command and return a list of jobs, or one question with options. If Muse gives nothing usable, nothing starts and the command is not guessed at.
+- **Queue and worker.** The worker in `wardos/agent/worker.py` asks WardOS for the next job, does it, and reports every step.
+- **The brain.** `choose` in `wardos/hospital/brain.py` picks a saved skill, explores, asks the doctor, or refuses.
+- **Saved skills.** A skill is a JSON step list, per site, in `skills/`. Plain code replays it in Chrome, with no model.
+- **The firewall.** `WriteFirewall` in `wardos/hospital/firewall.py` blocks data-changing requests. `read_only_skill` in `wardos/chain/planner.py` refuses a saved skill that has a write-like control.
+- **Values.** The answer is read off the screen by code, not taken from the model's words. It goes into the record.
+- **Review.** `review` in `wardos/chain/planner.py` reads each result and decides: done, retry once, another saved skill or explore, ask the doctor, or give up. It never changes an answer, and it works inside hard limits.
+- **Explore and learn.** `Explorer.run` in `wardos/hospital/explore.py` finds the way through a site it has not seen. `compile_skill` in `wardos/hospital/learn.py` turns the recording into a skill. `verify_skill` replays it, and the skill is saved only if the replay gives the same answer. After a failed replay, a skill can be repaired.
+- **Watches.** `Watch` in `wardos/hospital/watch.py` checks one test for one patient, only when told. `is_dangerous` decides if a new value is dangerous.
+- **Alerts.** `new_notifications` in `wardos/chain/alerts.py` finds new dangerous values and new reports. Web push messages carry no patient detail.
 
 - **Doctor:** phone or laptop web app. Photos, voice and one sentence go in.
 - **Server and record:** a FastAPI chain server (`wardos/chain/api.py`). Reading turns photo to text to facts, and every value is linked to its source. SQLite locally or Firestore. Alerts go out by web push, danger only.
